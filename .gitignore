@@ -52,3 +52,5 @@ dist/
 
 # Other temporary or generated files
 truffle-abis/
+
+.env

@@ -1,4 +1,7 @@
-pragma solidity ^0.5.0;
+//// SPDX-License-Identifier: MIT
+
+
+pragma solidity ^0.8.19;
 
 contract RWD {
     string  public name = "Reward Token";
@@ -21,7 +24,7 @@ contract RWD {
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
     
-    constructor() public {
+    constructor() {
         balanceOf[msg.sender] = totalSupply;
     }
 

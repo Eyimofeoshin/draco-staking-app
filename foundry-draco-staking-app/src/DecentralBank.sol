@@ -1,7 +1,11 @@
-pragma solidity ^0.5.0;
+//// SPDX-License-Identifier: MIT
 
-import './RWD.sol';
-import './Tether.sol';
+
+pragma solidity ^0.8.19;
+
+import { RWD } from "./RWD.sol";
+import { Tether } from "./Tether.sol";
+
 
 contract DecentralBank {
   string public name = 'Decentral Bank';
@@ -15,7 +19,7 @@ contract DecentralBank {
   mapping(address => bool) public hasStaked;
   mapping(address => bool) public isStaking;
 
-constructor(RWD _rwd, Tether _tether) public {
+constructor(RWD _rwd, Tether _tether)  {
     rwd = _rwd;
     tether = _tether;
     owner = msg.sender;
@@ -28,8 +32,7 @@ function depositTokens(uint _amount) public {
     require(_amount > 0, 'amount cannot be 0');
   
   // Transfer tether tokens to this contract address for staking
-  tether.transferFrom(msg.sender, address(this), _amount);
-
+  require(tether.transferFrom(msg.sender, address(this), _amount), "TransferFrom failed");
   // Update Staking Balance
   stakingBalance[msg.sender] = stakingBalance[msg.sender] + _amount;
 
@@ -49,7 +52,7 @@ function depositTokens(uint _amount) public {
     require(balance > 0, 'staking balance cannot be less than zero');
 
     // transfer the tokens to the specified contract address from our bank
-    tether.transfer(msg.sender, balance);
+   require(tether.transfer(msg.sender, balance), "Transfer failed");
 
     // reset staking balance
     stakingBalance[msg.sender] = 0;
@@ -69,7 +72,7 @@ function depositTokens(uint _amount) public {
                 address recipient = stakers[i]; 
                 uint balance = stakingBalance[recipient] / 9;
                 if(balance > 0) {
-                rwd.transfer(recipient, balance);
+                require(rwd.transfer(recipient, balance), "RWD transfer failed");
             }
        }
        }
