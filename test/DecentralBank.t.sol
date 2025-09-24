@@ -15,13 +15,12 @@ contract DecentralBankTest is Test {
     address public customer;
 
     function tokens(uint256 number) public pure returns (uint256) {
-        return number * 10**18;
+        return number * 10 ** 18;
     }
 
     function setUp() public {
-        owner = address(0x72AA20A2CeEEe5726896F9545affb9672b8D6F8A);    
+        owner = address(0x72AA20A2CeEEe5726896F9545affb9672b8D6F8A);
         customer = address(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2);
-
 
         vm.startPrank(owner);
         tether = new Tether();
@@ -78,7 +77,7 @@ contract DecentralBankTest is Test {
 
         vm.prank(owner);
         decentralBank.issueTokens();
-        
+
         uint256 expectedReward = decentralBank.stakingBalance(customer) / 9;
         assertEq(rwd.balanceOf(customer), expectedReward);
 
@@ -86,7 +85,7 @@ contract DecentralBankTest is Test {
         vm.expectRevert("caller must be the owner");
         decentralBank.issueTokens();
     }
-    
+
     function testUnstakeTokens() public {
         vm.startPrank(customer);
         tether.approve(address(decentralBank), tokens(100));
@@ -97,26 +96,26 @@ contract DecentralBankTest is Test {
         decentralBank.unstakeTokens();
 
         assertEq(tether.balanceOf(customer), tokens(100));
-        
+
         assertEq(tether.balanceOf(address(decentralBank)), tokens(0));
 
         assertFalse(decentralBank.isStaking(customer));
         assertEq(decentralBank.stakingBalance(customer), 0);
     }
-    
+
     function testUnstakeRevertsForZeroBalance() public {
         vm.prank(customer);
         vm.expectRevert("staking balance cannot be less than zero");
         decentralBank.unstakeTokens();
     }
-    
+
     function testIssueTokensWithMultipleStakers() public {
         address customer2 = address(0xDeadBeefBabe);
-        
+
         vm.prank(owner);
         tether.transfer(customer2, tokens(100));
         vm.stopPrank();
-        
+
         vm.startPrank(customer);
         tether.approve(address(decentralBank), tokens(100));
         decentralBank.depositTokens(tokens(100));
@@ -126,12 +125,12 @@ contract DecentralBankTest is Test {
         tether.approve(address(decentralBank), tokens(50));
         decentralBank.depositTokens(tokens(50));
         vm.stopPrank();
-        
+
         vm.prank(owner);
         decentralBank.issueTokens();
-        
+
         assertEq(rwd.balanceOf(customer), decentralBank.stakingBalance(customer) / 9);
-        
+
         assertEq(rwd.balanceOf(customer2), decentralBank.stakingBalance(customer2) / 9);
     }
 }

@@ -25,7 +25,7 @@ contract IssueTokens is Script {
         // Issue tokens from the owner's address
         vm.prank(owner);
         decentralBank.issueTokens();
-        
+
         console.log("Tokens have been issued successfully!");
     }
 }
