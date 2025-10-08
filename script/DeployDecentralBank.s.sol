@@ -26,14 +26,13 @@ contract DeployDecentralBank is Script {
         // 5. Transfer 100 Tether tokens (mUSDT) to the deployer's address for testing
         // This is necessary because the Tether constructor mints the supply to its deployer.
         // We ensure the deployer's address has the mUSDT needed to stake later.
-        tether.transfer(msg.sender, 1000 * 10**tether.decimals());
+        tether.transfer(msg.sender, 1000 * 10 ** tether.decimals());
 
         console.log("Tether deployed to:", address(tether));
         console.log("RWD deployed to:", address(rwd));
         console.log("DecentralBank deployed to:", address(bank));
         console.log("Transferred RWD supply to DecentralBank:", rwd.totalSupply());
-        console.log("Minted 1000 mUSDT to deployer for staking:", 1000 * 10**tether.decimals());
-
+        console.log("Minted 1000 mUSDT to deployer for staking:", 1000 * 10 ** tether.decimals());
 
         vm.stopBroadcast();
     }
