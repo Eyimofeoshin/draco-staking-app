@@ -11,7 +11,7 @@ class Navbar extends Component {
                 &nbsp; DAPP Yield Staking (Decentralized Banking)
                 </a>
                 <ul className='navbar-nav px-3'>
-                    <li className='text-nowrap d-none nav-item d-sm-none d-sm-block'>
+                    <li className='text-nowrap d-none nav-item d-sm-block'>
                         <small style={{color:'white'}}>ACCOUNT NUMBER: {this.props.account}
                         </small>
                     </li>
