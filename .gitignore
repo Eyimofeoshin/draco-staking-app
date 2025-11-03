@@ -59,7 +59,6 @@ truffle-abis/
 /package-lock.json
 /yarn.lock
 
-# Build Folders
 /build
 /out
 /cache
@@ -72,3 +71,9 @@ truffle-abis/
 # Deployment & Test Artifacts
 /broadcast
 /config-overrides.js
+  
+
+  build
+  out
+  broadcast
+  
