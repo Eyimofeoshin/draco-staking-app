@@ -54,3 +54,21 @@ dist/
 truffle-abis/
 
 .env
+
+/node_modules
+/package-lock.json
+/yarn.lock
+
+# Build Folders
+/build
+/out
+/cache
+
+# Local/Secrets
+.env
+.DS_Store
+*.log
+
+# Deployment & Test Artifacts
+/broadcast
+/config-overrides.js
